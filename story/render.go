@@ -1,18 +1,27 @@
 package story
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 )
 
-type Renderer struct {
+type renderer struct {
 	t *template.Template
 }
 
-func NewRenderer(templateFile string) {
-	t := template.Must(template.ParseFiles(templateFile))
+type TemplateData struct {
+	Node Node
+	URL  string
 }
 
-func (r Renderer) render(w io.Writer, n Node) {
-	err := r.t.Execute(w, n)
+func newRenderer(templateFile string) *renderer {
+	t := template.Must(template.ParseFiles(templateFile))
+	return &renderer{t}
+}
+
+func (r *renderer) render(w io.Writer, baseURL string, n Node) error {
+	fmt.Printf(baseURL)
+	err := r.t.Execute(w, TemplateData{n, baseURL})
+	return err
 }

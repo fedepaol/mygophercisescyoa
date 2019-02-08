@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>.Title</title>
+    <title>.Node.Title</title>
   </head>
   <body>
-  <h1>{{ .Title}}</h1>
-  {{range .Story}}
-        {{ . }}
-        <br>
-  {{end}}
-  {{range .Options}}
-        <a href=/{{ .Arc }>{{ .Text }}</a>
-        <br>
+  <h1>{{ .Node.Title}}</h1>
+  {{range .Node.Story}}
+  {{ . }}{{end}}
+  {{range .Node.Options}} <a href={{ $.URL }}/{{ .Arc }}>{{ .Text }}</a>
   {{end}}
   </body>
 </html>
