@@ -8,6 +8,5 @@
   {{range .Node.Story}}
   {{ . }}{{end}}
   {{range .Node.Options}} <a href={{ $.URL }}/{{ .Arc }}>{{ .Text }}</a>
-  {{end}}
-  </body>
+  {{end}}</body>
 </html>

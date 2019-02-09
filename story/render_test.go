@@ -34,9 +34,10 @@ func TestRender(t *testing.T) {
 		ioutil.WriteFile(golden, b.Bytes(), 0644)
 	}
 	expected, _ := ioutil.ReadFile(golden)
+	t.Error("Output different from golden file")
 
 	if !bytes.Equal(b.Bytes(), expected) {
-		// FAIL!
+		t.Error("Output different from golden file")
 	}
 
 }

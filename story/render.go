@@ -1,7 +1,6 @@
 package story
 
 import (
-	"fmt"
 	"html/template"
 	"io"
 )
@@ -12,7 +11,7 @@ type renderer struct {
 
 type TemplateData struct {
 	Node Node
-	URL  string
+	URL  template.URL
 }
 
 func newRenderer(templateFile string) *renderer {
@@ -21,7 +20,6 @@ func newRenderer(templateFile string) *renderer {
 }
 
 func (r *renderer) render(w io.Writer, baseURL string, n Node) error {
-	fmt.Printf(baseURL)
-	err := r.t.Execute(w, TemplateData{n, baseURL})
+	err := r.t.Execute(w, TemplateData{n, template.URL(baseURL)})
 	return err
 }
