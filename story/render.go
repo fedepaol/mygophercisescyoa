@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-type renderer struct {
+type Renderer struct {
 	t *template.Template
 }
 
@@ -14,12 +14,13 @@ type TemplateData struct {
 	URL  template.URL
 }
 
-func newRenderer(templateFile string) *renderer {
+// NewRenderer returns a renderer from the given file
+func NewRenderer(templateFile string) *Renderer {
 	t := template.Must(template.ParseFiles(templateFile))
-	return &renderer{t}
+	return &Renderer{t}
 }
 
-func (r *renderer) render(w io.Writer, baseURL string, n Node) error {
+func (r *Renderer) render(w io.Writer, baseURL string, n Node) error {
 	err := r.t.Execute(w, TemplateData{n, template.URL(baseURL)})
 	return err
 }

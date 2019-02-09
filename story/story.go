@@ -2,7 +2,7 @@ package story
 
 import (
 	"encoding/json"
-	"fmt"
+	"errors"
 	"io"
 )
 
@@ -10,6 +10,9 @@ type NodeOption struct {
 	Text string `json:"text"`
 	Arc  string `json:"arc"`
 }
+
+// ErrNodeNotFound is the error returned when a node is not found
+var ErrNodeNotFound = errors.New("Node not found")
 
 // Node Represents a story node
 type Node struct {
@@ -25,7 +28,7 @@ type Story map[string]Node
 func (s Story) Next(option string) (Node, error) {
 	res, ok := s[option]
 	if !ok {
-		return Node{}, fmt.Errorf("Option %s not found", option)
+		return Node{}, ErrNodeNotFound
 	}
 	return res, nil
 }
